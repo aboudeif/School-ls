@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta dir="rtl">
+        <link rel="stylesheet" href="./style.css">
+        <script src="./Sscript.js"></script>
+        <title>مدرسة</title>
+    </head>
+    <body onload="document.getElementById('title-ST').click();preLoad();">
+        <br>
+        <article>
+        <nav>         
+            <span class="menu" onclick="openTab('title-ST','show');">الطلاب</span>
+            <span class="menu" onclick="openTab('title-TC','show')">المعلمين</span>
+            <span class="menu" onclick="openTab('title-PR','show');">أولياء الأمور</span>
+        </nav>
+        <div class="tab">
+            <button class="tab-title" onclick="openTab('title-ST','open');" id="title-ST">
+                <span class="close" onclick="closeTab(event,'ST');">x </span>الطلاب                
+            </button>
+            <button class="tab-title" onclick="openTab('title-TC','open');" id="title-TC">
+                <span class="close" onclick="closeTab(event,'TC');">x </span>المعلمين                
+            </button>
+            <button class="tab-title" onclick="openTab('title-PR','open');" id="title-PR">
+                <span class="close" onclick="closeTab(event,'PR');">x </span>أولياء الأمور                
+            </button>
+        </div>
+        
+    <div class="tabcontent" id="ST">
+        <div class="bar">            
+            <div class="search">
+            <select id="STsearch-col" class="btn"></select>
+            <input type="search" class="btn" id="STsearchBox" placeholder="اكتب هنا للبحث" oninput="search('ST');">
+        </div>
+            <div class="control">
+                <input class="addBtn btn" type="button" value="إضافة جديد" onclick="reset('ST');document.getElementById('show-ST').style.display = 'block';">
+            </div>
+        </div>
+        <div class="show-item" id="show-ST">
+            <form action="" method="get" onsubmit = "storeValues('ST');keepTab('ST');" onreset="deleteValue('ST');printValues('ST');hideItem('show-ST');">
+                <div class="addL"><img id="student" alt="Student" src="https://aboudeif.w3spaces.com/Img/student.png"></div>
+                <div class="addL">
+                    <label for="numId">رقم الطالب
+                    <strong title="مطلوب" aria-label="مطلوب"><small>*</small></strong>
+                    </label>
+                    <label for="nameId">اسم الطالب
+                    <strong title="مطلوب" aria-label="مطلوب"><small>*</small></strong>
+                    </label>
+                    <label for="NIDId">الرقم القومى
+                    <strong title="مطلوب" aria-label="مطلوب"><small>*</small></strong>
+                    </label>   
+                    <label for="genderId">النوع
+                    </label> 
+                </div>
+                <div class="addI">
+                    <input id="numId" type="number" name="num" min="1" placeholder="رقم الطالب" required>
+                    <input id="nameId" type="text" name="name" placeholder="الاسم كاملاً" required pattern="[أ-ي\s]{3,70}" title="أدخل اسم الطالب بحروف عربية فقط">
+                    <input id="NIDId" type="text" name="NID" placeholder="الرقم القومي للطالب" required pattern="[0-9]{14,14}" maxlength="14" title="أدخل الرقم القومي كاملاً (14 رقم)">
+                    <select id="genderId" name="gender">
+                        <option value="male">ذكر</option>
+                        <option value="female">أنثي</option>
+                    </select>
+                </div>
+                <div class="addL">
+                    <label for="emailId">الإيميل
+                    <strong title="مطلوب" aria-label="مطلوب"><small>*</small></strong>
+                    </label>
+                    <label for="stationId">محطة الركوب
+                    <strong title="مطلوب" aria-label="مطلوب"><small>*</small></strong>
+                    </label>
+                    <label for="addressId">العنوان
+                    <strong title="مطلوب" aria-label="مطلوب"><small>*</small></strong>
+                    </label>   
+                    <label for="busId">الحافلة المدرسية
+                    <strong title="مطلوب" aria-label="مطلوب"><small>*</small></strong>
+                    </label> 
+                </div>
+                <div class="addI">
+                    <input id="emailId" type="email" name="email" placeholder="الإيميل" required>
+                    <input id="stationId" type="text" name="station" placeholder="محطة الركوب" required >
+                    <input id="addressId" type="text" name="address" placeholder="عنوان الطالب" required >
+                    <input id="busId" type="text" name="bus" placeholder="الحافلة المدرسية" required >
+                </div>
+                <div class="addL">
+                    <label for="birthdateId">تاريخ الميلاد
+                    <strong title="مطلوب" aria-label="مطلوب"><small>*</small></strong>
+                    </label>
+                    <label for="classId">الفصل
+                    <strong title="مطلوب" aria-label="مطلوب"><small>*</small></strong>
+                    </label>
+                    <label for="statusId">حالة القيد
+                    <strong title="مطلوب" aria-label="مطلوب"><small>*</small></strong>
+                    </label>   
+                    <label for="infoId">معلومات إضافية
+                    </label> 
+                </div>
+                <div class="addI">
+                    <input id="birthdateId" type="date" name="birthdate" placeholder="--/--/----" value = "1989-10-01">
+                    <input id="classId" type="text" name="class" placeholder="الفصل" required >
+                    <select id="statusId" name="status">
+                        <option value = "new">جديد</option>
+                        <option value = "moved">منقول</option>
+                        <option value = "tirm">مفصول</option>
+                    </select>
+                    <input id="infoId" type="text" name="info" placeholder="معلومات إضافية" >
+                </div>
+                <div class="controls">
+                    <input class="addBtn btn" type="submit" value="حفظ">
+                    <input class="resetBtn btn" type="reset" value="حذف">
+                    <input class="exitBtn btn" type="button" value="خروج" onclick="hideItem('show-ST');">              
+                </div>
+            </form>
+            <div class="tab">
+                <button class="active" onclick="openSubTab(event,'a1Table','STsubTabContent')">أولياء الأمور</button>
+                <button class="" onclick="openSubTab(event,'a2Table','STsubTabContent')">المعلمين</button>
+                <button class="" onclick="openSubTab(event,'a3Table','STsubTabContent')">المواد الدراسية</button>
+                <button class="" onclick="openSubTab(event,'a4Table','STsubTabContent')">الدرجات</button>
+                <button class="" onclick="openSubTab(event,'a5Table','STsubTabContent')">النشاطات الرياضية</button>
+                <button class="" onclick="openSubTab(event,'a6Table','STsubTabContent')">المصروفات</button>
+            </div>
+            <div class="show-item" id="show-SP">
+                <datalist id="SPList"></datalist>
+                <table id="SPTable" class="active">
+                    <header>
+                        <tr>
+                            <th>-</th>
+                            <th>الرقم</th>
+                            <th>اسم ولي الأمر</th>
+                            <th>الرقم القومي</th>
+                        </tr>
+                    </header>
+                    <tbody></tbody>            
+                </table>
+                
+                <div class="controls">
+                    <input class="addBtn btn" type="button" value="حفظ" onclick="printValues('a1');hideItem('show-SP');">
+                    <input class="resetBtn btn" type="button" value="إعادة تعيين" onclick="">
+                    <input class="exitBtn btn" type="button" value="خروج" onclick="hideItem('show-SP');">
+                </div>
+            </div>
+            <div id="STsubTabContent">
+                <table id="a1Table" class="active">
+                    <header>
+                        <tr>
+                            <th>رقم</th>
+                            <th>اسم ولي الأمر</th>
+                            <th>الرقم القومي</th>
+                            <th>الهاتف</th>
+                            <th>تحكم</th>
+                        </tr>
+                    </header>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="cntr">
+                                <input class="addBtn sbtn" type="button" value="إضافة" onclick="printValues('SP'); document.getElementById('show-SP').style.display='block';">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table id="a2Table" class="subTab">
+                    <header>
+                        <tr>
+                            <th>رقم</th>
+                            <th>اسم المعلم</th>
+                            <th>الرقم القومي</th>
+                            <th>الهاتف</th>
+                            <th>تحكم</th>
+                        </tr>
+                    </header>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="cntr">
+                                <input class="addBtn sbtn" type="button" value="إضافة" onclick="">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table id="a3Table"  class="subTab">
+                    <header>
+                        <tr>
+                            <th>رقم</th>
+                            <th>المادة الدراسية</th>
+                            <th>تحكم</th>
+                        </tr>
+                    </header>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td class="cntr">
+                                <input class="addBtn sbtn" type="button" value="إضافة" onclick="">
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot></tfoot>
+                </table>
+                <table id="a4Table"  class="subTab">
+                    <header>
+                        <tr>
+                            <th>رقم</th>
+                            <th>النشاط</th>
+                            <th>تحكم</th>
+                        </tr>
+                    </header>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td class="cntr">
+                                <input class="addBtn sbtn" type="button" value="إضافة" onclick="">
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot></tfoot>
+                </table>
+                <table id="a5Table"  class="subTab">
+                    <header>
+                        <tr>
+                            <th>رقم</th>
+                            <th>اسم المادة</th>
+                            <th>الدرجة</th>
+                            <th>تحكم</th>
+                        </tr>
+                    </header>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="cntr">
+                                <input class="addBtn sbtn" type="button" value="إضافة" onclick="">
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot></tfoot>
+                </table>
+                <table id="a6Table"  class="subTab">
+                    <header>
+                        <tr>
+                            <th>رقم</th>
+                            <th>البيان</th>
+                            <th>المصروفات</th>
+                            <th>الحالة</th>
+                            <th>تحكم</th>
+                        </tr>
+                    </header>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="cntr">
+                                <input class="addBtn sbtn" type="button" value="إضافة" onclick="">
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot></tfoot>
+                </table>
+            </div>
+        </div>
+        <TABLE id="STTable">
+                    <header class="row-header">
+                        <TR>
+                            <TH>رقم الطالب</TH>
+                            <TH>اسم الطالب</TH>
+                            <TH>الرقم القومي</TH>
+                            <TH>النوع</TH>
+                            <TH>الإيميل</TH>
+                            <TH>محطة الركوب</TH>
+                            <TH>العنوان</TH>
+                            <TH>الحافلة المدرسية</TH>
+                            <TH>تاريخ الميلاد</TH>
+                            <TH>الفصل</TH>
+                            <TH>حالة القيد</TH>
+                            <TH>معلومات إضافية</TH>
+                        </TR>
+                    </header>
+                    <tbody><tr></tr></tbody>
+                    <tfoot>
+                        <tr>
+                            <td id="cell-footer" colspan="3"></td>
+                        </tr>
+                    </tfoot>
+        </TABLE>
+    </div>
+    <div class="tabcontent" id="TC">
+            <div class="bar">
+                <div class="search">
+                <select id="TCsearch-col" class="btn"></select>
+                <input type="search" class="btn" id="TCsearchBox" placeholder="اكتب هنا للبحث" oninput="search('TC');">
+                </div>
+                <div class="control">
+                    <input class="addBtn btn" type="button" value="إضافة جديد" onclick="reset('TC');document.getElementById('show-TC').style.display = 'block';">
+                </div>
+            </div>
+            
+            <div class="show-item" id="show-TC">
+                <form action="" method="get" onsubmit="storeValues('TC');keepTab('TC');" onreset="deleteValue('TC');printValues('TC');hideItem('show-TC');">
+                    <div class="addL"><img id="teacher" alt="Teacher" src="https://aboudeif.w3spaces.com/Img/teacher.png"></div>
+                    <div class="addL">
+                        <label for="TCHnumId">رقم المعلم
+                        <strong title="مطلوب" aria-label="مطلوب"><small>*</small></strong>
+                        </label>
+                        <label for="TCHnameId">اسم المعلم
+                        <strong title="مطلوب" aria-label="مطلوب"><small>*</small></strong>
+                        </label>
+                        <label for="TCHNIDId">الرقم القومى
+                        <strong title="مطلوب" aria-label="مطلوب"><small>*</small></strong>
+                        </label>   
+                        <label for="TCHgenderId">النوع
+                        </label> 
+                    </div>
+                    <div class="addI">
+                        <input id="TCHnumId" type="number" name="num" min="1" placeholder="رقم المعلم" required>
+                        <input id="TCHnameId" type="text" name="name" placeholder="الاسم كاملاً" required pattern="[أ-ي\s]{3,70}" title="أدخل اسم المعلم بحروف عربية فقط">
+                        <input id="TCHNIDId" type="text" name="NID" placeholder="الرقم القومي للمعلم" required pattern="[0-9]{14,14}" maxlength="14" title="أدخل الرقم القومي كاملاً (14 رقم)">
+                        <select id="TCHgenderId" name="gender">
+                            <option value="male">ذكر</option>
+                            <option value="female">أنثي</option>
+                        </select>
+                    </div>
+                    <div class="addL">
+                        <label for="TCHemailId">الإيميل
+                        <strong title="مطلوب" aria-label="مطلوب"><small>*</small></strong>
+                        </label>
+                        <label for="TCHaddressId">العنوان
+                        <strong title="مطلوب" aria-label="مطلوب"><small>*</small></strong>
+                        </label>
+                        <label for="TCHbirthdateId">تاريخ الميلاد
+                        <strong title="مطلوب" aria-label="مطلوب"><small>*</small></strong>
+                        </label>
+                        <label for="TCHinfoId">معلومات إضافية
+                        </label>
+                    </div>
+                    <div class="addI">
+                        <input id="TCHemailId" type="email" name="email" placeholder="الإيميل" required>
+                        <input id="TCHaddressId" type="text" name="address" placeholder="عنوان المعلم" required >
+                        <input id="TCHbirthdateId" type="date" name="birthdate" placeholder="--/--/----" value = "1989-10-01">
+                        <input id="TCHinfoId" type="text" name="info" placeholder="معلومات إضافية" >
+                    </div>
+                    <div class="controls">
+                        <input class="addBtn btn" type="submit" value="حفظ">
+                        <input class="resetBtn btn" type="reset" value="حذف">
+                        <input class="exitBtn btn" type="button" value="خروج" onclick="hideItem('show-TC');">              
+                    </div>
+    
+                </form>
+                <div class="tab">
+                    <button class="active" onclick="openSubTab(event,'TCHsubSTable','TCHsubTabContent')">الطلاب</button>
+                    <button class="" onclick="openSubTab(event,'TCHsubClassTable','TCHsubTabContent')">الفصول</button>
+                    <button class="" onclick="openSubTab(event,'TCHsubCSNTable','TCHsubTabContent')">الحصص</button>
+                    <button class="" onclick="openSubTab(event,'TCHsubSLRTable','TCHsubTabContent')">مفردات المرتب</button>
+                </div>
+                <div id="TCHsubTabContent">
+                    <table id="TCHsubSTable"  class="active">
+                        <header>
+                            <tr>
+                                <th>رقم</th>
+                                <th>اسم الطالب</th>
+                                <th>الرقم القومي</th>
+                                <th>الهاتف</th>
+                                <th>تحكم</th>
+                            </tr>
+                        </header>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td class="cntr">
+                                    <input class="addBtn sbtn" type="button" value="إضافة" onclick="">
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot></tfoot>
+                    </table>
+                    <table id="TCHsubClassTable"  class="subTab">
+                        <header>
+                            <tr>
+                                <th>رقم المرحلة</th>
+                                <th>رقم الفصل</th>
+                                <th>الفترة</th>
+                                <th>تحكم</th>
+                            </tr>
+                        </header>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td class="cntr">
+                                    <input class="addBtn sbtn" type="button" value="إضافة" onclick="">
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot></tfoot>
+                    </table>
+                    <table id="TCHsubCSNTable"  class="subTab">
+                        <header>
+                            <tr>
+                                <th>اليوم</th>
+                                <th> رقم الحصة</th>
+                                <th>المادة الدراسية</th>
+                                <th>الفترة</th>
+                                <th>الفصل</th>
+                                <th>تحكم</th>
+                            </tr>
+                        </header>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td class="cntr">
+                                    <input class="addBtn sbtn" type="button" value="إضافة" onclick="">
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot></tfoot>
+                    </table>
+                    <table id="TCHsubSLRTable"  class="subTab">
+                        <header>
+                            <tr>
+                                <th>مسلسل</th>
+                                <th>البيان</th>
+                                <th>الراتب</th>
+                                <th>تحكم</th>
+                            </tr>
+                        </header>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td class="cntr">
+                                    <input class="addBtn sbtn" type="button" value="إضافة" onclick="">
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot></tfoot>
+                    </table>
+                </div>
+            </div>
+            <TABLE id="TCTable">
+                        <header class="row-header">
+                            <TR>
+                                <TH>رقم المعلم</TH>
+                                <TH>اسم المعلم</TH>
+                                <TH>الرقم القومي</TH>
+                                <TH>النوع</TH>
+                                <TH>الإيميل</TH>
+                                <TH>العنوان</TH>
+                                <TH>تاريخ الميلاد</TH>
+                                <TH>معلومات إضافية</TH>
+                            </TR>
+                        </header>
+                        <tbody><tr></tr></tbody>
+                        <tfoot><tr><td colspan="3"></td></tr></tfoot>
+            </TABLE>
+    </div>
+    <div class="tabcontent" id="PR">
+                <div class="bar">
+                    <div class="search">
+                    <select id="PRsearch-col" class="btn"></select>
+                    <input type="search" class="btn" id="PRsearchBox" placeholder="اكتب هنا للبحث" oninput="search('PR');">
+                    </div>
+                    <div class="control">
+                        <input class="addBtn btn" type="button" value="إضافة جديد" onclick="reset('PR');document.getElementById('show-PR').style.display = 'block';">
+                    </div>
+                </div>
+                <div class="show-item" id="show-PR">
+                    <form action="" method="get" onsubmit="storeValues('PR');keepTab('PR');" onreset="deleteValue('PR');printValues('PR');hideItem('show-PR');">
+                        <div class="addL"><img id="Parent" alt="Teacher" src="https://aboudeif.w3spaces.com/Img/parents.png"></div>
+                        <div class="addL">
+                            <label for="PRnumId">رقم ولي الأمر
+                            <strong title="مطلوب" aria-label="مطلوب"><small>*</small></strong>
+                            </label>
+                            <label for="PRnameId">اسم ولي الأمر
+                            <strong title="مطلوب" aria-label="مطلوب"><small>*</small></strong>
+                            </label>
+                            <label for="PRNIDId">الرقم القومى
+                            <strong title="مطلوب" aria-label="مطلوب"><small>*</small></strong>
+                            </label>   
+                            <label for="PRgenderId">النوع
+                            </label> 
+                        </div>
+                        <div class="addI">
+                            <input id="PRnumId" type="number" name="num" min="1" placeholder="رقم ولي الأمر" required>
+                            <input id="PRnameId" type="text" name="name" placeholder="الاسم كاملاً" required pattern="[أ-ي\s]{3,70}" title="أدخل اسم ولي الأمر بحروف عربية فقط">
+                            <input id="PRNIDId" type="text" name="NID" placeholder="الرقم القومي للمعلم" required pattern="[0-9]{14,14}" maxlength="14" title="أدخل الرقم القومي كاملاً (14 رقم)">
+                            <select id="PRgenderId" name="gender">
+                                <option value="male">ذكر</option>
+                                <option value="female">أنثي</option>
+                            </select>
+                        </div>
+                        <div class="addL">
+                            <label for="PRphoneId">الهاتف
+                            <strong title="مطلوب" aria-label="مطلوب"><small>*</small></strong>
+                            </label>
+                            <label for="PRaddressId">العنوان
+                            <strong title="مطلوب" aria-label="مطلوب"><small>*</small></strong>
+                            </label>
+                            <label for="PRinfoId">معلومات إضافية
+                            </label>
+                        </div>
+                        <div class="addI">
+                            <input id="PRphoneId" type="number" name="phone" placeholder="الهاتف" required>
+                            <input id="PRaddressId" type="text" name="address" placeholder="عنوان ولي الأمر" required >
+                            <input id="PRinfoId" type="text" name="info" placeholder="معلومات إضافية" >
+                        </div>
+                        <div class="controls">
+                            <input class="addBtn btn" type="submit" value="حفظ">
+                            <input class="resetBtn btn" type="reset" value="حذف">
+                            <input class="exitBtn btn" type="button" value="خروج" onclick="hideItem('show-PR');">              
+                        </div>
+        
+                    </form>
+                    <div class="tab">
+                        <button class="active" onclick="openSubTab(event,'PRsubSTable','PRsubTabContent')">الطلاب</button>
+                    </div>
+                    <div id="PRsubTabContent">
+                        <table id="PRsubSTable"  class="active">
+                            <header>
+                                <tr>
+                                    <th>رقم</th>
+                                    <th>اسم الطالب</th>
+                                    <th>الرقم القومي</th>
+                                    <th>الهاتف</th>
+                                    <th>تحكم</th>
+                                </tr>
+                            </header>
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="cntr">
+                                        <input class="addBtn sbtn" type="button" value="إضافة" onclick="">
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot></tfoot>
+                        </table>
+                </div>
+                </div>
+                <TABLE id="PRTable">
+                    <header class="row-header">
+                        <TR>
+                            <TH>رقم ولي الأمر</TH>
+                            <TH>اسم ولي الأمر</TH>
+                            <TH>الرقم القومي</TH>
+                            <TH>النوع</TH>
+                            <TH>الهاتف</TH>
+                            <TH>العنوان</TH>
+                            <TH>معلومات إضافية</TH>
+                        </TR>
+                    </header>
+                    <tbody><tr></tr></tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3"></td>
+                        </tr>
+                    </tfoot>
+                </TABLE>
+    </div>
+        </article>
+    </body>
+</html>
